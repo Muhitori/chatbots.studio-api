@@ -3,12 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { LessonClassroom } from './lessonsClassrooms.entity';
-import { TeacherLesson } from './teachersLessons.entity';
+import { Classroom } from './classroom.entity';
+import { Teacher } from './teacher.entity';
 
 @Entity('Lessons')
 export class Lesson {
@@ -24,6 +24,12 @@ export class Lesson {
   @Column('varchar')
   public startTime: string;
 
+  @Column('uuid')
+  public teacherId: string;
+
+  @Column('uuid')
+  public classroomId: string;
+
   @CreateDateColumn({ type: 'timestamp with time zone' })
   public createdAt: Date;
 
@@ -33,9 +39,9 @@ export class Lesson {
   @DeleteDateColumn({ type: 'timestamp with time zone' })
   public deletedAt: Date;
 
-  @OneToMany(() => TeacherLesson, (teacherLesson) => teacherLesson.lesson)
-  public teachersLessons: TeacherLesson[];
+  @ManyToOne(() => Teacher, (teacher) => teacher.lessons)
+  public teacher: Teacher;
 
-  @OneToMany(() => LessonClassroom, (lessonClassroom) => lessonClassroom.lesson)
-  public lessonsClassrooms: LessonClassroom[];
+  @ManyToOne(() => Classroom, (classroom) => classroom.lessons)
+  public classroom: Classroom;
 }

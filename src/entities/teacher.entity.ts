@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { TeacherLesson } from './teachersLessons.entity';
+import { Lesson } from './lesson.entity';
 
 @Entity('Teachers')
 export class Teacher {
@@ -35,6 +35,6 @@ export class Teacher {
   @DeleteDateColumn({ type: 'timestamp with time zone' })
   public deletedAt: Date;
 
-  @OneToMany(() => TeacherLesson, (teacherLesson) => teacherLesson.teacher)
-  public teachersLessons: TeacherLesson[];
+  @OneToMany(() => Lesson, (lesson) => lesson.teacher)
+  public lessons: Lesson[];
 }

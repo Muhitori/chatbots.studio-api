@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class ClassroomMigration20210104235630 implements MigrationInterface {
+export class ClassroomMigration20210103235630 implements MigrationInterface {
   private tableName = 'Classrooms';
 
   async up(queryRunner: QueryRunner): Promise<void> {

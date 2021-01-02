@@ -5,11 +5,10 @@ import {
   TableForeignKey,
 } from 'typeorm';
 import { Classroom } from '../entities/classroom.entity';
-import { Lesson } from '../entities/lesson.entity';
+import { Teacher } from '../entities/teacher.entity';
 
-export class LessonClassroomMigration20210106235630
-  implements MigrationInterface {
-  private tableName = 'LessonsClassrooms';
+export class LessonMigration20210104235630 implements MigrationInterface {
+  private tableName = 'Lessons';
 
   async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
@@ -23,7 +22,25 @@ export class LessonClassroomMigration20210106235630
             isPrimary: true,
           },
           {
-            name: 'lessonId',
+            name: 'subject',
+            type: 'varchar',
+            length: '255',
+            isNullable: false,
+          },
+          {
+            name: 'dayOfWeek',
+            type: 'varchar',
+            length: '255',
+            isNullable: false,
+          },
+          {
+            name: 'startTime',
+            type: 'varchar',
+            length: '255',
+            isNullable: false,
+          },
+          {
+            name: 'teacherId',
             type: 'uuid',
             isNullable: false,
           },
@@ -55,9 +72,9 @@ export class LessonClassroomMigration20210106235630
     await queryRunner.createForeignKey(
       this.tableName,
       new TableForeignKey({
-        columnNames: ['lessonId'],
+        columnNames: ['teacherId'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'Lessons',
+        referencedTableName: 'Teachers',
         onDelete: 'CASCADE',
       }),
     );
@@ -73,10 +90,10 @@ export class LessonClassroomMigration20210106235630
     );
 
     const [
-      lesson,
-    ]: Lesson[] = await queryRunner.query(
-      'SELECT * FROM "Lessons" WHERE subject = $1',
-      ['Math'],
+      teacher,
+    ]: Teacher[] = await queryRunner.query(
+      'SELECT * FROM "Teachers" WHERE name = $1',
+      ['teacher'],
     );
 
     const [
@@ -87,8 +104,8 @@ export class LessonClassroomMigration20210106235630
     );
 
     await queryRunner.query(
-      'INSERT INTO "LessonsClassrooms"("lessonId", "classroomId") VALUES ($1, $2);',
-      [lesson.id, classroom.id],
+      'INSERT INTO "Lessons"("subject", "dayOfWeek", "startTime", "teacherId", "classroomId") VALUES ($1, $2, $3, $4, $5);',
+      ['Math', 'Thursday', '10:30', teacher.id, classroom.id],
     );
   }
 

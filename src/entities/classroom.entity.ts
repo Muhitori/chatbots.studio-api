@@ -3,9 +3,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Lesson } from './lesson.entity';
 
 @Entity('Classrooms')
 export class Classroom {
@@ -23,4 +25,7 @@ export class Classroom {
 
   @DeleteDateColumn({ type: 'timestamp with time zone' })
   public deletedAt: Date;
+
+  @ManyToOne(() => Lesson, (lesson) => lesson.classroom)
+  public lessons: Lesson[];
 }
