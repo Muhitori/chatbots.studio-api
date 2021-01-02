@@ -1,13 +1,24 @@
 import { Teacher } from './teacher.interface';
 import { Classroom } from './classroom.interface';
 
-export class Lesson {
-  public subject: string;
+export interface Lesson {
+  subject: Subject;
 
-  public dayOfWeek: string;
+  dayOfWeek: Day;
 
-  public startTime: string;
+  startTime: LessonTimes;
 
-  public classrooms: Classroom[];
-  public teachers: Teacher[];
+  classrooms: Classroom[];
+  teachers: Teacher[];
 }
+
+enum Subject {
+  Biology = 'Biology',
+  Math = 'Math',
+  Physics = 'Physics',
+  Chemistry = 'Chemistry',
+}
+
+enum Day {}
+
+enum LessonTimes {}

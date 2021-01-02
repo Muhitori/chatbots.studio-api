@@ -1,3 +1,4 @@
+//@ts-ignore
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -23,6 +24,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'import/prefer-default-export': 'off',
     'class-methods-use-this': 'off',
-    'no-useless-constructor': 'off'
+    'no-useless-constructor': 'off',
+    'import/no-cycle': 'off'
   },
 };

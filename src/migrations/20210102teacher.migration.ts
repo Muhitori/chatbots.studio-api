@@ -2,9 +2,10 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class TeacherMigration20210102235630 implements MigrationInterface {
   private tableName = 'Teachers';
+
   async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
-    
+
     await queryRunner.createTable(
       new Table({
         name: this.tableName,

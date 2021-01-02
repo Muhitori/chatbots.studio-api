@@ -1,19 +1,22 @@
 import {
+  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  UpdateDateColumn,
   DeleteDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('Classrooms')
-export class Teacher {
+@Entity('LessonsClassrooms')
+export class LessonClassroom {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column('int')
-  public number: number;
+  @Column('uuid')
+  public lessonId: string;
+
+  @Column('uuid')
+  public classroomId: number;
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   public createdAt: Date;

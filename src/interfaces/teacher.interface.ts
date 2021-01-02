@@ -1,13 +1,13 @@
 import { Lesson } from './lesson.interface';
 
-export class Teacher {
-  public name: string;
+export interface Teacher {
+  name: string;
 
-  public age: number;
+  age: number;
 
-  public sex: string;
+  sex: string;
 
-  public yearsOfExperience: number;
+  yearsOfExperience: number;
 
-  public lessons: Lesson[]
+  lessons: Lesson[];
 }

@@ -3,20 +3,28 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { TeacherLesson } from './teachersLessons.entity';
 
-@Entity('TeachersLessons')
-export class TeacherLesson {
+@Entity('Teachers')
+export class Teacher {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column('uuid')
-  public teacherId: string;
+  @Column('varchar')
+  public name: string;
 
-  @Column('uuid')
-  public lessonId: number;
+  @Column('int')
+  public age: number;
+
+  @Column('varchar')
+  public sex: string;
+
+  @Column('int')
+  public yearsOfExperience: number;
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   public createdAt: Date;
@@ -26,4 +34,7 @@ export class TeacherLesson {
 
   @DeleteDateColumn({ type: 'timestamp with time zone' })
   public deletedAt: Date;
+
+  @OneToMany(() => TeacherLesson, (teacherLesson) => teacherLesson.teacher)
+  public teachersLessons: TeacherLesson[];
 }

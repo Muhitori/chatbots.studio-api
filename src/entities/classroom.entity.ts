@@ -7,22 +7,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('Teachers')
-export class Teacher {
+@Entity('Classrooms')
+export class Classroom {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column('varchar')
-  public name: string;
-
   @Column('int')
-  public age: number;
-
-  @Column('varchar')
-  public sex: string;
-
-  @Column('int')
-  public yearsOfExperience: number;
+  public number: number;
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   public createdAt: Date;

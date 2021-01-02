@@ -1,7 +1,7 @@
 import { Lesson } from './lesson.interface';
 
-export class Classroom {
-  public number: number;
+export interface Classroom {
+  number: number;
 
-  public lessons: Lesson[]
+  lessons: Lesson[];
 }
