@@ -8,8 +8,8 @@ export interface LessonDto {
 
   startTime: LessonTime;
 
-  classrooms: ClassroomDto[];
-  teachers: TeacherDto[];
+  classroom: ClassroomDto;
+  teacher: TeacherDto;
 }
 
 export enum Subject {

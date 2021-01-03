@@ -7,7 +7,8 @@ async function bootstrap() {
 
   const service = app.get(TeachersService);
 
-  console.log(await service.getAll());
+  const teachers = await service.getAll();
+  console.log(JSON.stringify(teachers, null, 2));
 
   await app.listen(process.env.PORT || 3000);
 }
