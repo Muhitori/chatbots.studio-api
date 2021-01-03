@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Gender } from '../interfaces/teacher.dto';
 import { Lesson } from './lesson.entity';
 
 @Entity('Teachers')
@@ -20,8 +21,8 @@ export class Teacher {
   @Column('int')
   public age: number;
 
-  @Column('varchar')
-  public sex: string;
+  @Column('enum', { enum: Gender })
+  public gender: Gender;
 
   @Column('int')
   public yearsOfExperience: number;

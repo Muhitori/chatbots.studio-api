@@ -9,20 +9,21 @@ import {
 } from 'typeorm';
 import { Classroom } from './classroom.entity';
 import { Teacher } from './teacher.entity';
+import { DayOfTheWeek, LessonTime, Subject } from '../interfaces/lesson.dto';
 
 @Entity('Lessons')
 export class Lesson {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column('varchar')
-  public subject: string;
+  @Column('enum', { enum: Subject })
+  public subject: Subject;
 
-  @Column('varchar')
-  public dayOfWeek: string;
+  @Column('enum', { enum: DayOfTheWeek })
+  public dayOfWeek: DayOfTheWeek;
 
-  @Column('varchar')
-  public startTime: string;
+  @Column('enum', { enum: LessonTime })
+  public startTime: LessonTime;
 
   @Column('uuid')
   public teacherId: string;

@@ -4,6 +4,7 @@ import {
   Table,
   TableForeignKey,
 } from 'typeorm';
+import { DayOfTheWeek, LessonTime, Subject } from '../interfaces/lesson.dto';
 import { Classroom } from '../entities/classroom.entity';
 import { Teacher } from '../entities/teacher.entity';
 
@@ -23,20 +24,20 @@ export class LessonMigration20210104235630 implements MigrationInterface {
           },
           {
             name: 'subject',
-            type: 'varchar',
-            length: '255',
+            type: 'enum',
+            enum: Object.values(Subject),
             isNullable: false,
           },
           {
             name: 'dayOfWeek',
-            type: 'varchar',
-            length: '255',
+            type: 'enum',
+            enum: Object.values(DayOfTheWeek),
             isNullable: false,
           },
           {
             name: 'startTime',
-            type: 'varchar',
-            length: '255',
+            type: 'enum',
+            enum: Object.values(LessonTime),
             isNullable: false,
           },
           {
@@ -105,7 +106,7 @@ export class LessonMigration20210104235630 implements MigrationInterface {
 
     await queryRunner.query(
       'INSERT INTO "Lessons"("subject", "dayOfWeek", "startTime", "teacherId", "classroomId") VALUES ($1, $2, $3, $4, $5);',
-      ['Math', 'Thursday', '10:30', teacher.id, classroom.id],
+      ['math', 'thursday', '10:30', teacher.id, classroom.id],
     );
   }
 

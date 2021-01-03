@@ -1,4 +1,5 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { Gender } from '../interfaces/teacher.dto';
 
 export class TeacherMigration20210102235630 implements MigrationInterface {
   private tableName = 'Teachers';
@@ -28,9 +29,9 @@ export class TeacherMigration20210102235630 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: 'sex',
-            type: 'varchar',
-            length: '255',
+            name: 'gender',
+            type: 'enum',
+            enum: Object.values(Gender),
             isNullable: false,
           },
           {
@@ -59,8 +60,8 @@ export class TeacherMigration20210102235630 implements MigrationInterface {
     );
 
     await queryRunner.query(
-      'INSERT INTO "Teachers"("name", "age", "sex", "yearsOfExperience") VALUES ($1, $2, $3, $4);',
-      ['teacher', 50, 'man', 25],
+      'INSERT INTO "Teachers"("name", "age", "gender", "yearsOfExperience") VALUES ($1, $2, $3, $4);',
+      ['teacher', 50, 'male', 25],
     );
   }
 
