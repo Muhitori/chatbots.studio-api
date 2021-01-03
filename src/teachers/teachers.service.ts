@@ -26,12 +26,30 @@ export class TeachersService {
     return teachers;
   }
 
-  async getBy(criteria: Partial<TeacherDto>): Promise<TeacherDto | null> {
-    return this.teacherRepo.findOne({ where: criteria });
+  async getBy(criteria: Partial<TeacherDto>): Promise<TeacherDto[] | []> {
+    return this.clearTeachers(
+      await this.teacherRepo.find({
+        where: criteria,
+        join: {
+          alias: 'teachers',
+          leftJoinAndSelect: {
+            lessons: 'teachers.lessons',
+          },
+        },
+      }),
+    );
   }
 
   async getById(id: string): Promise<TeacherDto | null> {
-    return this.teacherRepo.findOne(id);
+    return this.teacherRepo.findOne({
+      where: id,
+      join: {
+        alias: 'teachers',
+        leftJoinAndSelect: {
+          lessons: 'teachers.lessons',
+        },
+      },
+    });
   }
 
   async create(teacher: TeacherDto): Promise<TeacherDto | null> {
@@ -51,17 +69,22 @@ export class TeachersService {
 
   clearTeachers(teachers: TeacherDto[]) {
     const clearTeachers: TeacherDto[] = teachers.map((teacher) => {
-      const newTeacher: TeacherDto = this.clearObj(teacher);
-
-      if (newTeacher.lessons.length > 0) {
-        newTeacher.lessons.map((lesson) => {
-          return this.clearObj(lesson);
-        });
-      }
-
+      const newTeacher: TeacherDto = this.clearTeacher(teacher);
       return newTeacher;
     });
     return clearTeachers;
+  }
+
+  clearTeacher(teacher: TeacherDto) {
+    const newTeacher: TeacherDto = this.clearObj(teacher);
+
+    if (newTeacher.lessons?.length > 0) {
+      newTeacher.lessons.map((lesson) => {
+        return this.clearObj(lesson);
+      });
+    }
+
+    return newTeacher;
   }
 
   clearObj(obj: any): any {
