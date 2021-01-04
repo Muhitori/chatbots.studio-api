@@ -4,7 +4,7 @@
 $ npm install
 ```
 
-##DB Sheme
+## DB Sheme
 
 <p align=center>
 <a href="https://ibb.co/Bc9BLXR"><img src="https://i.ibb.co/XjqtXhT/2021-01-04-194343.png" alt="2021-01-04-194343" border="0"></a>
