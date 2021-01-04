@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { TeachersService } from './teachers.service';
 import { Gender, TeacherDto } from '../interfaces/teacher.dto';
@@ -15,48 +16,55 @@ export class TeachersController {
   constructor(private teachersService: TeachersService) {}
 
   @Get()
-  async getAllTeachers() {
-    console.log('lol');
+  async getTeachers(@Query() query): Promise<TeacherDto[] | []> {
+    if (query.name) {
+      return this.teachersService.getBy({ name: query.name });
+    }
+    if (query.age) {
+      return this.teachersService.getBy({ age: query.age });
+    }
+    if (query.gender) {
+      const enumGender: Gender = Gender[query.gender];
+      return this.teachersService.getBy({
+        gender: enumGender,
+      });
+    }
+    if (query.experience) {
+      return this.teachersService.getBy({
+        yearsOfExperience: query.experience,
+      });
+    }
     return this.teachersService.getAll();
   }
 
-  @Get(':name')
-  async getByName(@Param('name') name: string) {
-    console.log(name);
-    return this.teachersService.getBy({ name });
-  }
-
-  @Get(':age')
-  async getByAge(@Param('age') age: number) {
-    console.log(age);
-    return this.teachersService.getBy({ age });
-  }
-
-  @Get(':gender')
-  async getByGender(@Param('gender') gender: string) {
-    console.log(gender);
-    const enumGender: Gender = Gender[gender];
-    return this.teachersService.getBy({ gender: enumGender });
-  }
-
-  @Get(':experience')
-  async getByExperience(@Param('experience') yearsOfExperience: number) {
-    return this.teachersService.getBy({ yearsOfExperience });
+  @Get(':id')
+  async getTeacherById(@Param('id') id: string): Promise<TeacherDto | null> {
+    return this.teachersService.getById(id);
   }
 
   @Post()
-  async createTeacher(@Body() teacher: TeacherDto) {
+  async createTeacher(@Body() postTeacher: any): Promise<TeacherDto | null> {
+    const teacher: TeacherDto = {
+      ...postTeacher,
+      yearsOfExperience: postTeacher.experience,
+    };
     return this.teachersService.create(teacher);
   }
 
   @Put(':id')
-  async updateTeacher(@Param('id') id: string, @Body() teacher: TeacherDto) {
+  async updateTeacher(
+    @Param('id') id: string,
+    @Body() updateTeacher: any,
+  ): Promise<TeacherDto | null> {
+    const teacher: TeacherDto = {
+      ...updateTeacher,
+      yearsOfExperience: updateTeacher.experience,
+    };
     return this.teachersService.update(id, teacher);
   }
 
   @Delete(':id')
-  async deleteTeacher(@Param('id') id: string) {
-    console.log(id);
+  async deleteTeacher(@Param('id') id: string): Promise<any> {
     return this.teachersService.delete(id);
   }
 }

@@ -55,12 +55,14 @@ export class TeachersService {
   async create(teacher: TeacherDto): Promise<TeacherDto | null> {
     const insertResult = await this.teacherRepo.insert(teacher);
 
-    return this.teacherRepo.findOneOrFail({ where: insertResult.identifiers });
+    return this.clearTeacher(
+      await this.teacherRepo.findOneOrFail({ where: insertResult.identifiers }),
+    );
   }
 
   async update(id: string, teacher: TeacherDto): Promise<TeacherDto | null> {
     await this.teacherRepo.update(id, teacher);
-    return this.getById(id);
+    return this.clearTeacher(await this.getById(id));
   }
 
   async delete(id: string): Promise<any> {
