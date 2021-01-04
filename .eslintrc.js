@@ -25,6 +25,7 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-useless-constructor': 'off',
     'import/no-cycle': 'off',
-    'no-param-reassign': 'off'
+    'no-param-reassign': 'off',
+    'no-console': 'off'
   },
 };
