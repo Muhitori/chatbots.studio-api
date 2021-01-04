@@ -1,6 +1,6 @@
-import { LessonDto } from './lesson.dto';
+import { Lesson } from './lesson.interface';
 
-export interface TeacherDto {
+export interface Teacher {
   name: string;
 
   age: number;
@@ -9,7 +9,7 @@ export interface TeacherDto {
 
   yearsOfExperience: number;
 
-  lessons: LessonDto[];
+  lessons: Lesson[];
 }
 
 export enum Gender {

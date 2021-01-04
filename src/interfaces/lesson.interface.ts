@@ -1,15 +1,15 @@
-import { TeacherDto } from './teacher.dto';
-import { ClassroomDto } from './classroom.dto';
+import { Teacher } from './teacher.interface';
+import { Classroom } from './classroom.interface';
 
-export interface LessonDto {
+export interface Lesson {
   subject: Subject;
 
   dayOfWeek: DayOfTheWeek;
 
   startTime: LessonTime;
 
-  classroom: ClassroomDto;
-  teacher: TeacherDto;
+  classroom: Classroom;
+  teacher: Teacher;
 }
 
 export enum Subject {

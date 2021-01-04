@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Gender } from '../interfaces/teacher.dto';
+import { Gender } from '../interfaces/teacher.interface';
 import { Lesson } from './lesson.entity';
 
 @Entity('Teachers')

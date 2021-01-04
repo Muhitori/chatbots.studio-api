@@ -9,7 +9,11 @@ import {
 } from 'typeorm';
 import { Classroom } from './classroom.entity';
 import { Teacher } from './teacher.entity';
-import { DayOfTheWeek, LessonTime, Subject } from '../interfaces/lesson.dto';
+import {
+  DayOfTheWeek,
+  LessonTime,
+  Subject,
+} from '../interfaces/lesson.interface';
 
 @Entity('Lessons')
 export class Lesson {

@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
-import { Gender } from '../interfaces/teacher.dto';
+import { Gender } from '../interfaces/teacher.interface';
 
 export class TeacherMigration20210102235630 implements MigrationInterface {
   private tableName = 'Teachers';

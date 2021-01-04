@@ -4,7 +4,11 @@ import {
   Table,
   TableForeignKey,
 } from 'typeorm';
-import { DayOfTheWeek, LessonTime, Subject } from '../interfaces/lesson.dto';
+import {
+  DayOfTheWeek,
+  LessonTime,
+  Subject,
+} from '../interfaces/lesson.interface';
 import { Classroom } from '../entities/classroom.entity';
 import { Teacher } from '../entities/teacher.entity';
 

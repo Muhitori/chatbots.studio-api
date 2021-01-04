@@ -9,7 +9,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { TeachersService } from './teachers.service';
-import { Gender, TeacherDto } from '../interfaces/teacher.dto';
+import { Gender } from '../interfaces/teacher.interface';
+import { TeacherDto } from '../dto/teacher.dto';
 
 @Controller('teachers')
 export class TeachersController {
@@ -43,23 +44,15 @@ export class TeachersController {
   }
 
   @Post()
-  async createTeacher(@Body() postTeacher: any): Promise<TeacherDto | null> {
-    const teacher: TeacherDto = {
-      ...postTeacher,
-      yearsOfExperience: postTeacher.experience,
-    };
+  async createTeacher(@Body() teacher: TeacherDto): Promise<TeacherDto | null> {
     return this.teachersService.create(teacher);
   }
 
   @Put(':id')
   async updateTeacher(
     @Param('id') id: string,
-    @Body() updateTeacher: any,
+    @Body() teacher: TeacherDto,
   ): Promise<TeacherDto | null> {
-    const teacher: TeacherDto = {
-      ...updateTeacher,
-      yearsOfExperience: updateTeacher.experience,
-    };
     return this.teachersService.update(id, teacher);
   }
 

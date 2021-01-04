@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getConnection, Repository } from 'typeorm';
-import { TeacherDto } from '../interfaces/teacher.dto';
+import { TeacherDto } from '../dto/teacher.dto';
 import { Teacher } from '../entities/teacher.entity';
 
 @Injectable()
@@ -22,6 +22,7 @@ export class TeachersService {
         LEFT JOIN "Classrooms" AS classroom 
           ON lesson."classroomId" = classroom.id
         WHERE teacher."yearsOfExperience" > 10 
+        AND teacher."deletedAt" IS NULL
         AND lesson."dayOfWeek" = 'thursday'
         AND lesson."startTime" < '14:35'
         AND classroom.number = 100 `,
@@ -71,6 +72,7 @@ export class TeachersService {
   }
 
   async create(teacher: TeacherDto): Promise<TeacherDto | null> {
+    console.log(teacher);
     const insertResult = await this.teacherRepo.insert(teacher);
 
     return this.clearTeacher(
