@@ -60,15 +60,17 @@ export class TeachersService {
   }
 
   async getById(id: string): Promise<TeacherDto | null> {
-    return this.teacherRepo.findOne({
-      where: id,
-      join: {
-        alias: 'teachers',
-        leftJoinAndSelect: {
-          lessons: 'teachers.lessons',
+    return this.clearTeacher(
+      await this.teacherRepo.findOne({
+        where: { id },
+        join: {
+          alias: 'teachers',
+          leftJoinAndSelect: {
+            lessons: 'teachers.lessons',
+          },
         },
-      },
-    });
+      }),
+    );
   }
 
   async create(teacher: TeacherDto): Promise<TeacherDto | null> {
